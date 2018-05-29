@@ -19,6 +19,14 @@ for comment in comments:
 		message = ''.join(("hey sexy people i am a robot designed to seduce:",
 				   "u/{0} ?".format(author)" ? #tags the author in the post for more fun
 		))
-		comment.reply(message) #sends the message
-		print(message) #prints to console for fun
+		try:
+			comment.reply(message) #sends the message
+		except praw.exceptions.APIException as e:
+			if e.error_type == 'RATELIMIT':
+				time.sleep(60) #eventually handle the rate limit in a smarter way
+			else:
+				raise
+		except Exception as e:
+			print(e)
+		print(message) #print the message to the console so you an see it too
 
