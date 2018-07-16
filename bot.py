@@ -24,8 +24,6 @@ for comment in comments:
 		except praw.exceptions.APIException as e:
 			if e.error_type == 'RATELIMIT':
 				time.sleep(60) #eventually handle the rate limit in a smarter way
-			else:
-				raise
 		except Exception as e:
 			print(e)
 		print(message) #print the message to the console so you an see it too
