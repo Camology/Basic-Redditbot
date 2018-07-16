@@ -1,12 +1,18 @@
 import praw
+import configparser
+config = configparser.ConfigParser()
+config._interpolation = configparser.ExtendedInterpolation()
+config.read('config.ini')
+
 
 keyword = '' #keyword you want to match on		 
 
-bot = praw.Reddit(user_agent='', #same as username
-	              client_id='', #comes from registration
-	              client_secret='', #comes from registration
-	              username='', #username
-	              password='') #password
+
+bot = praw.Reddit(user_agent=config.get('abc', 'user_agent'),
+	client_id=config.get('abc', 'client_id'),
+	client_secret=config.get('abc', 'client_secret'),
+	username=config.get('abc', 'username'),
+	password=config.get('abc', 'password'))
 subreddit= bot.subreddit('All') #decide which subs you want to scan for
 comments = subreddit.stream.comments() 
 
